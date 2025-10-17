@@ -83,7 +83,7 @@ public class EntityDTOMapper {
 
     //OrderItem to DTO plus product and user
 
-    public OrderItemDTO mapOrderItemToDTOproductAmdIser(OrderItem orderItem) {
+    public OrderItemDTO mapOrderItemToDTOproductAndIser(OrderItem orderItem) {
         OrderItemDTO orderItemDTO = mapOrderItemToDTOproduct(orderItem);
         if(orderItem.getUser()!=null) {
             UserDTO userDTO = mapUserToDTOaddress(orderItem.getUser());
@@ -93,7 +93,7 @@ public class EntityDTOMapper {
     }
 
     //User to DTO with Address and Order Items History
-    public UserDTO mapUserDTOaddressAndOrderHistory(User user) {
+    public UserDTO mapUserDTOAddressAndOrderHistory(User user) {
         UserDTO userDTO = mapUserToDTOBasic(user);
         if(user.getOrderItemList()!=null&&!user.getOrderItemList().isEmpty()) {
             userDTO.setOrderItenList(user.getOrderItemList()
