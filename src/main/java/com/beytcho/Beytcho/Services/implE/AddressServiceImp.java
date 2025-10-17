@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AdressServiceImp implements AddressService {
+public class AddressServiceImp implements AddressService {
 
     private final AddressRepo addyRepo;
     private final UserService userService;
