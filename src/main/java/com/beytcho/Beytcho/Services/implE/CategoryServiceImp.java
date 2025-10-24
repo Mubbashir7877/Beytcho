@@ -11,6 +11,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -46,17 +49,39 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public ResponseDTO getALLCategory() {
-        return null;
+        List<Category> categories = catRepo.findAll();
+        List<CategoryDTO> categoryDTOList = categories.stream()
+                .map(entityDTOMapper::mapCategoryToDTOBasic)
+                .collect(Collectors.toList());
+
+
+        return ResponseDTO.builder()
+                .status(200)
+                .categoryList(categoryDTOList)
+                .build();
     }
 
     @Override
     public ResponseDTO getCategorybyID(Long catID) {
-        return null;
+        Category cat = catRepo.findById(catID).orElseThrow(()->new NotFoundException("Category Not Found"));
+        CategoryDTO catDTO = entityDTOMapper.mapCategoryToDTOBasic(cat);
+
+        return ResponseDTO.builder()
+                .status(200)
+                .category(catDTO)
+
+                .build();
     }
 
     @Override
     public ResponseDTO deleteCategory(Long catID) {
-        return null;
-    }
 
+        Category cat = catRepo.findById(catID).orElseThrow(()->new NotFoundException("Category Not Found"));
+        catRepo.delete(cat);
+
+        return ResponseDTO.builder()
+                .status(200)
+                .message("Category was successfully deleted.")
+                .build();
+    }
 }
