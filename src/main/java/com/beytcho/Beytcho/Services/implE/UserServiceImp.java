@@ -34,18 +34,18 @@ public class UserServiceImp implements UserService {
 
 
     @Override
-    public ResponseDTO registerUser(UserDTO registerationRequest) {
+    public ResponseDTO registerUser(UserDTO registrationRequest) {
 
         UserRole role = UserRole.USER;
 
-        if (registerationRequest.getRole()!=null&& registerationRequest.getRole().equalsIgnoreCase("admin")){
+        if (registrationRequest.getRole()!=null&& registrationRequest.getRole().equalsIgnoreCase("admin")){
             role = UserRole.ADMIN;
         }
 
         User user = User.builder()
-                .name(registerationRequest.getName())
-                .email(registerationRequest.getEmail())
-                .password(passwordEncoder.encode(registerationRequest.getPassword()))
+                .name(registrationRequest.getName())
+                .email(registrationRequest.getEmail())
+                .password(passwordEncoder.encode(registrationRequest.getPassword()))
                 .role(role).build();
 
         User savedUser = userRepo.save(user);

@@ -7,7 +7,7 @@ import com.beytcho.Beytcho.Entities.User;
 
 public interface UserService {
 
-    ResponseDTO registerUser(UserDTO registerationRequest);
+    ResponseDTO registerUser(UserDTO registrationRequest);
 
     ResponseDTO loginUser(LoginRequest loginRequest);
 
