@@ -2,9 +2,11 @@ package com.beytcho.Beytcho.Mappers;
 
 import com.beytcho.Beytcho.DTO.*;
 import com.beytcho.Beytcho.Entities.*;
+import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
+@Component
 public class EntityDTOMapper {
 
     //user entity to user DTO
