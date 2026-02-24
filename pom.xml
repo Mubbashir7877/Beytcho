@@ -8,10 +8,10 @@
 		<version>3.5.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.beytcho</groupId>
-	<artifactId>Beytcho</artifactId>
+	<groupId>com.NovaCart</groupId>
+	<artifactId>NovaCart</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Beytcho</name>
+	<name>NovaCart</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
