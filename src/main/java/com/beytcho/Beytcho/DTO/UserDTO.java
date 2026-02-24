@@ -18,7 +18,7 @@ public class UserDTO {
     private Long id;
     private String email;
     private String name;
-    private String phoneNumber;
+    private String phone;
     private String password;
     private String role;
     private List<OrderItemDTO> orderItenList;

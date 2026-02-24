@@ -21,6 +21,6 @@ public class AddressDTO {
     private String state;
     private String zip;
     private String country;
-    private UserDTO user;
+    //private UserDTO user;
     private final LocalDateTime created = LocalDateTime.now();
 }

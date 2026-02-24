@@ -46,6 +46,7 @@ public class UserServiceImp implements UserService {
                 .name(registrationRequest.getName())
                 .email(registrationRequest.getEmail())
                 .password(passwordEncoder.encode(registrationRequest.getPassword()))
+                .phone(registrationRequest.getPhone())
                 .role(role).build();
 
         User savedUser = userRepo.save(user);
@@ -72,6 +73,7 @@ public class UserServiceImp implements UserService {
         return ResponseDTO.builder()
                 .status(200)
                 .message("User successfully logged in")
+                .token(token)
                 .expirationTime("6 Month")
                 .role(user.getRole().name())
                 .build();
@@ -103,11 +105,12 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+
     public ResponseDTO getUserInfoAndOrderHistory() {
 
         User user = getLoginUser();
         UserDTO userDTO = entityDTOMapper.mapUserDTOAddressAndOrderHistory(user);
-
+        log.info("Address object: " + user.getAddress());
         return ResponseDTO.builder()
                 .status(200)
                 .user(userDTO)

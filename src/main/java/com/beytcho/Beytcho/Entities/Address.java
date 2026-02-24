@@ -2,11 +2,13 @@ package com.beytcho.Beytcho.Entities;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "addresses")
 
@@ -22,7 +24,7 @@ public class Address {
     private String zip;
     private String country;
 
-    @ManyToOne( fetch = FetchType.LAZY)
+    @OneToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 

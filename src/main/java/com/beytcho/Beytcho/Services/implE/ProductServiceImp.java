@@ -53,23 +53,34 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public ResponseDTO updateProduct(Long productID, Long catID, MultipartFile image, String name, String description, BigDecimal price) {
+    public ResponseDTO updateProduct(Long productID, Long catID, MultipartFile image,
+                                     String name, String description, BigDecimal price) {
 
-        Product product = productRepo.findById(productID).orElseThrow(()-> new NotFoundException("Product not found."));
-        Category category = null;
-        String productImageUrl = null;
-        if(catID!=null) {
-            category = categoryRepo.findById(catID).orElseThrow(() -> new NotFoundException("Category not found."));
-        }
-        if (image != null && !image.isEmpty()){
-            productImageUrl = s3Service.saveImageToS3(image);
+        Product product = productRepo.findById(productID)
+                .orElseThrow(() -> new NotFoundException("Product not found."));
+
+        if (catID != null) {
+            Category category = categoryRepo.findById(catID)
+                    .orElseThrow(() -> new NotFoundException("Category not found."));
+            product.setCategory(category);
         }
 
-        if (category!=null){product.setCategory(category);}
-        if (name!=null){product.setName(name);}
-        if (description!=null){product.setDescription(description);}
-        if (price!=null){product.setPrice(price);}
-        if (productImageUrl!=null){product.setImageUrl(productImageUrl);}
+        if (name != null) product.setName(name);
+        if (description != null) product.setDescription(description);
+        if (price != null) product.setPrice(price);
+
+        // ✅ Only upload once
+        if (image != null && !image.isEmpty()) {
+
+            // delete old image first
+            if (product.getImageUrl() != null) {
+                s3Service.deleteImageFromS3(product.getImageUrl());
+            }
+
+            // upload new image
+            String newImageUrl = s3Service.saveImageToS3(image);
+            product.setImageUrl(newImageUrl);
+        }
 
         productRepo.save(product);
 
@@ -77,13 +88,19 @@ public class ProductServiceImp implements ProductService {
                 .status(200)
                 .message("Product updated.")
                 .build();
-
     }
 
     @Override
     public ResponseDTO deleteProduct(Long productID) {
 
-        Product product = productRepo.findById(productID).orElseThrow(()-> new NotFoundException("Product not found."));
+        Product product = productRepo.findById(productID)
+                .orElseThrow(() -> new NotFoundException("Product not found."));
+
+        // Delete image from S3 first
+        if (product.getImageUrl() != null) {
+            s3Service.deleteImageFromS3(product.getImageUrl());
+        }
+
         productRepo.delete(product);
 
         return ResponseDTO.builder()

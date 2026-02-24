@@ -26,8 +26,9 @@ public class AddressServiceImp implements AddressService {
         Address address = user.getAddress();
 
         if(address == null){
-            address= new Address();
+            address = new Address();
             address.setUser(user);
+            user.setAddress(address);   // important
         }
         if( addyDTO.getStreet()!= null ) address.setStreet(addyDTO.getStreet());
         if( addyDTO.getZip()!= null ) address.setZip(addyDTO.getZip());

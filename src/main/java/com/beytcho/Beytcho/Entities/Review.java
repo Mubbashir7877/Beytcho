@@ -1,13 +1,14 @@
 package com.beytcho.Beytcho.Entities;
 
 import jakarta.persistence.*;
-import jakarta.servlet.annotation.HttpMethodConstraint;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "reviews")
 public class Review {
 

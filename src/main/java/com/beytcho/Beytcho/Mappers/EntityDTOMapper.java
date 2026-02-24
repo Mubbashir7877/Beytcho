@@ -16,7 +16,8 @@ public class EntityDTOMapper {
         userDTO.setId(user.getId());
         userDTO.setName(user.getName());
         userDTO.setEmail(user.getEmail());
-        userDTO.setPhoneNumber(user.getPhone());
+       // if (user.getAddress()!=null) {userDTO.setAddress(user.getAddress());}
+        userDTO.setPhone(user.getPhone());
         userDTO.setRole(user.getRole().name());
         return userDTO;
     }
@@ -47,7 +48,9 @@ public class EntityDTOMapper {
         orderItemDTO.setId(orderItem.getId());
         orderItemDTO.setQuantity(orderItem.getQuantity());
         orderItemDTO.setPrice(orderItem.getPrice());
-        orderItemDTO.setStatus(orderItemDTO.getStatus());
+        if (orderItem.getStatus() != null) {
+            orderItemDTO.setStatus(orderItem.getStatus().name());
+        }
         orderItemDTO.setCreated_at(orderItem.getCreatedAt());
         return orderItemDTO;
     }
@@ -59,6 +62,12 @@ public class EntityDTOMapper {
         productDTO.setName(product.getName());
         productDTO.setDescription(product.getDescription());
         productDTO.setPrice(product.getPrice());
+
+        if (product.getCategory() != null) {
+            CategoryDTO categoryDTO = mapCategoryToDTOBasic(product.getCategory());
+            productDTO.setCategory(categoryDTO);
+        }
+
         productDTO.setImageUrl(product.getImageUrl());
         return productDTO;
     }
@@ -97,6 +106,13 @@ public class EntityDTOMapper {
     //User to DTO with Address and Order Items History
     public UserDTO mapUserDTOAddressAndOrderHistory(User user) {
         UserDTO userDTO = mapUserToDTOBasic(user);
+
+
+        // ADD THIS
+        if (user.getAddress() != null) {
+            AddressDTO addressDTO = mapAddressToDTOBasic(user.getAddress());
+            userDTO.setAddress(addressDTO);
+        }
         if(user.getOrderItemList()!=null&&!user.getOrderItemList().isEmpty()) {
             userDTO.setOrderItenList(user.getOrderItemList()
                     .stream().
@@ -106,5 +122,6 @@ public class EntityDTOMapper {
 
         return userDTO;
     }
+
 
 }

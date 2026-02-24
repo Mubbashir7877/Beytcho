@@ -2,12 +2,14 @@ package com.beytcho.Beytcho.Entities;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
-import com.beytcho.Beytcho.Entities.Product;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "categories")
 

@@ -2,13 +2,15 @@ package com.beytcho.Beytcho.Entities;
 
 import com.beytcho.Beytcho.Enums.OrderStatus;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "order_items")
 public class OrderItem {
     @Id

@@ -37,7 +37,7 @@ public class ProductController {
 
     }
 
-    @PutMapping("/update/{prodID}")
+    @PutMapping("/update")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ResponseDTO> updateProduct(
             @RequestParam Long prodID,

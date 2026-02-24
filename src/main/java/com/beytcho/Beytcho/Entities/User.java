@@ -4,15 +4,13 @@ package com.beytcho.Beytcho.Entities;
 import com.beytcho.Beytcho.Enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 @Builder
@@ -32,7 +30,7 @@ public class User {
     @NotBlank(message = "Password is required.")
     private String password;
 
-    @Column(name = "phone #")
+    @Column(name = "phone")
     @NotBlank(message = "Phone number is required.")
     private String phone;
 
@@ -41,7 +39,8 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderItem> orderItemList;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private Address address;
 
     @Column(name = "created_at")
